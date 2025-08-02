@@ -1,0 +1,48 @@
+<body>
+  <div *ngIf="message" [ngClass]="messageClass" class="message">{{ message }}</div>
+  <div class="container">
+    <h2>{{ isUpdate ? 'Update User' : 'Register' }}</h2>
+    <form (ngSubmit)="isUpdate ? updateUser() : register()" #registerForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="name" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" required>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="register-button">{{ isUpdate ? 'Update' : 'Register' }}</button>
+        <button type="button" class="data-button" (click)="getUsers()">Data</button>
+      </div>
+    </form>
+  </div>
+
+  &nbsp;
+
+  <table *ngIf="users.length > 0" class="table mt-3" id="customers">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td><a href="#" (click)="editUser(user)">{{ user.name }}</a></td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <button (click)="deleteUser(user)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
